@@ -141,7 +141,7 @@ def build_fmcsa(root, rows, since):
             f"{fh:,} are authorized for-hire. Email and phone are hidden here. The full feed has them, plus filters by state, fleet size, cargo and hazmat.</p>{cta}"
             f"{carrier_table(rows[:show], n - show)}{cta}<p class='muted'>Free sample CSV (contacts masked): <a href='{SITE}/{csvp}'>{csvp}</a></p>"
             f"<h2>New trucking companies by state</h2><div class='grid'>{links}</div>"
-            "<h2>Who uses this</h2><p>Commercial truck insurance agents (new authorities need coverage on file before they can haul for hire), "
+            "<h2>What it costs</h2><p>New-carrier lead subscriptions list $39 to $599 a month on their own sites (PollyAI, Truckr, Carrier IQ, Rookiefeed; checked October 2026). This feed has no subscription: $3 per 1,000 rows, so a weekly pull of one state costs cents.</p><h2>Who uses this</h2><p>Commercial truck insurance agents (new authorities need coverage on file before they can haul for hire), "
             "freight factoring companies, ELD and dispatch services, fuel card programs, and truck dealers. "
             "The data is the official FMCSA Company Census. The full feed is the same data delivered as JSON/CSV/Excel, or straight into your CRM through the Apify API.</p>")
     write(root, "new-dot-authority-trucking-leads-today", page("new-dot-authority-trucking-leads-today/",
