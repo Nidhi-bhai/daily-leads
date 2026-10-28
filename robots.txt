@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://nidhi-bhai.github.io/daily-leads/sitemap.xml
