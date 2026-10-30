@@ -136,7 +136,7 @@ def build_fmcsa(root, rows, since):
     top = sorted(((s, v) for s, v in by.items() if s in STATES), key=lambda x: -len(x[1]))
     links = "".join(f"<a href='{SITE}/new-trucking-companies/{STATES[s].lower().replace(' ', '-')}/'>{STATES[s]} ({len(v)})</a>" for s, v in top)
     cta = f"<a class='cta' href='{FMCSA_ACTOR}'>Get all {n:,} with email + phone → $3 per 1,000</a>"
-    body = (f"<h1>New DOT authority trucking leads today: {n:,} new carriers this week</h1>{hook}"
+    body = (f"<h1>New DOT authority trucking leads today: {n:,} new carriers this week</h1>{hook}<p><a href='https://nidhi-bhai.github.io/daily-leads/subscribe/'><b>Every row with email + phone, filtered to your states, emailed daily: $15/month →</b></a></p>"
             f"<p>Below are {show} of {n:,} ({100*show//max(n,1)}%) active carriers added to the FMCSA census in the last 7 days. "
             f"{fh:,} are authorized for-hire. Email and phone are hidden here. The full feed has them, plus filters by state, fleet size, cargo and hazmat.</p>{cta}"
             f"{carrier_table(rows[:show], n - show)}{cta}<p class='muted'>Free sample CSV (contacts masked): <a href='{SITE}/{csvp}'>{csvp}</a></p>"
@@ -151,7 +151,7 @@ def build_fmcsa(root, rows, since):
     for s, v in top:
         if len(v) < 5: continue
         name = STATES[s]; slug = name.lower().replace(" ", "-"); sh = max(3, len(v) // 5)
-        b = (f"<h1>New trucking companies in {name} this week: {len(v):,}</h1>"
+        b = (f"<h1>New trucking companies in {name} this week: {len(v):,}</h1><p><a href='https://nidhi-bhai.github.io/daily-leads/subscribe/'><b>Every row with email + phone, filtered to your states, emailed daily: $15/month →</b></a></p>"
              f"<div class='hook'><b>{len(v):,}</b> new {name} carriers got a USDOT number since {sd:%b %d}. Here are {sh}. The other {len(v)-sh:,} are in the full feed.</div>"
              f"<p>New DOT numbers in {name} from the FMCSA census, refreshed daily. Email and phone are masked in the sample.</p>"
              f"<a class='cta' href='{FMCSA_ACTOR}'>Get all {len(v):,} {name} carriers with email + phone</a>{carrier_table(v[:sh], len(v)-sh)}"
@@ -214,7 +214,7 @@ def main():
     sets = {slug: sam_setaside(codes, 30) for codes, slug, _ in SETASIDES}
     if not any(v[1] for v in sets.values()): sys.exit("SAM fetch failed; site left unchanged")
     p1, nf = build_fmcsa(root, rows, since); p2, ns = build_sam(root, sets)
-    b = (f"<h1>Daily Leads: free samples of fresh US public-data lead lists</h1>"
+    b = (f"<h1>Daily Leads: free samples of fresh US public-data lead lists</h1><p><a href='https://nidhi-bhai.github.io/daily-leads/subscribe/'><b>Every row with email + phone, filtered to your states, emailed daily: $15/month →</b></a></p>"
          f"<div class='hook'>Today: <b>{nf:,}</b> new trucking companies and <b>{ns:,}</b> open small-business federal bids. You get 20% free. The rest sits one click away.</div>"
          f"<h2><a href='{SITE}/new-dot-authority-trucking-leads-today/'>New DOT authority trucking leads →</a></h2><p>For truck insurance agents, factoring, ELD and dispatch. <a href='{FMCSA_ACTOR}'>Full feed</a></p>"
          f"<h2><a href='{SITE}/sam-gov-small-business-set-aside-bids-today/'>New SAM.gov set-aside bids →</a></h2><p>For small federal contractors and GovCon BD teams. <a href='{SAM_ACTOR}'>Full feed</a></p>"

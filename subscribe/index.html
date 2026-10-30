@@ -1,0 +1,32 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>New Trucking Carrier Leads by Email Daily – $15/month, your states</title>
+<meta name="description" content="Every morning: a CSV of trucking companies that got a USDOT number yesterday, filtered to your states, with the email and phone they filed with FMCSA. $15/month, cancel anytime.">
+<style>body{font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;margin:0;color:#111;background:#fafaf7}main{max-width:760px;margin:auto;padding:24px}h1{font-size:28px;line-height:1.2}.box{background:#fff;border:1px solid #ddd;border-radius:10px;padding:18px;margin:18px 0}table{border-collapse:collapse;width:100%;font-size:14px}td,th{border:1px solid #ddd;padding:6px}label{display:block;margin:10px 0 4px;font-weight:600}select,input{width:100%;padding:8px;font-size:15px}small{color:#555}</style></head><body><main>
+<h1>Yesterday's new trucking companies, in your inbox by morning. $15/month.</h1>
+<p>FMCSA registers roughly 300–500 new USDOT carriers every weekday. In a 7-day test pull on 28 Oct 2026 there were 1,877, and every one had an email and phone on file. In their first weeks they shop for insurance, factoring, an ELD and a dispatcher. Whoever calls first usually wins.</p>
+<div class="box"><b>What you get</b><ul>
+<li>One CSV per weekday by email: legal name, officer, USDOT, email, phone, city/state, power units, drivers, for-hire flag, cargo.</li>
+<li>Only the states and carrier type you pick below.</li>
+<li>Source: FMCSA Company Census (public data). New USDOT registrations, not MC grant dates.</li>
+<li>$15/month via PayPal. Cancel anytime in your PayPal account.</li></ul>
+<a href="../new-dot-authority-trucking-leads-today/">See today's free sample first →</a></div>
+<div class="box"><b>Price check</b> (vendor pages, Oct 2026)<table><tr><th>Vendor</th><th>From</th></tr>
+<tr><td>AuthorityAlerts</td><td>$20/mo</td></tr><tr><td>New Authority Lists (weekly, no contacts)</td><td>$29/mo</td></tr><tr><td>PollyAI</td><td>$39 + $40/state</td></tr><tr><td>TruckerDB / Carrier Hunt Pro</td><td>$49/mo</td></tr><tr><td><b>This list (daily, with contacts)</b></td><td><b>$15/mo</b></td></tr></table></div>
+<div class="box"><b>Set your filter, then subscribe</b>
+<label>Email for daily delivery</label><input id="em" type="email" placeholder="you@agency.com">
+<label>States (Ctrl/Cmd-click for several; none = all states)</label><select id="st" multiple size="8"></select>
+<label>Carrier type</label><select id="ty"><option value="H">For-hire only (best for insurance/factoring/dispatch)</option><option value="A">All carriers</option><option value="P">Private only</option></select>
+<p id="msg" style="color:#b00"></p><div id="pp"></div>
+<small>Your email and filter are attached to the PayPal subscription and used only to send the file. First file goes out the next weekday morning (US Eastern).</small></div>
+<p><small>Questions: nidhi69n@gmail.com</small></p>
+</main>
+<script src="https://www.paypal.com/sdk/js?client-id=BAAb5cq2I0Xx3lFhRJNBjnuGCVT5VDtWfWHgAuSasCoaA_F4cFzLmDWcDmYhsXG6panQVSaRPR3gvrgE9w&vault=true&intent=subscription"></script>
+<script>
+const S="AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY".split(" ");
+const st=document.getElementById('st');S.forEach(s=>st.add(new Option(s,s)));
+paypal.Buttons({style:{label:'subscribe'},
+onClick:(d,a)=>{const e=document.getElementById('em').value.trim();if(!/^\S+@\S+\.\S+$/.test(e)){document.getElementById('msg').textContent='Enter the email for delivery first.';return a.reject();}return a.resolve();},
+createSubscription:(d,a)=>{const e=document.getElementById('em').value.trim();const ss=[...st.selectedOptions].map(o=>o.value).join('');const c=(document.getElementById('ty').value+'|'+(ss||'ALL')+'|'+e).slice(0,127);
+return a.subscription.create({plan_id:'P-55D932146G9844045NLSQJ5A',custom_id:c});},
+onApprove:d=>{document.getElementById('pp').innerHTML='<b>Subscribed. Your first CSV arrives next weekday morning. ID: '+d.subscriptionID+'</b>';}}).render('#pp');
+</script></body></html>
