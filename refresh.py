@@ -220,7 +220,7 @@ def main():
          f"<h2><a href='{SITE}/sam-gov-small-business-set-aside-bids-today/'>New SAM.gov set-aside bids →</a></h2><p>For small federal contractors and GovCon BD teams. <a href='{SAM_ACTOR}'>Full feed</a></p>"
          f"<h2><a href='{PDUFA_SITE}'>PDUFA date calendar →</a></h2><p>FDA decision dates pulled from SEC filings, for biotech traders. <a href='{PDUFA_ACTOR}'>Full feed</a></p>")
     write(root, "", page("", "Daily Leads – Free New Trucking Company & SAM.gov Bid Lists", "Free daily samples: new USDOT trucking companies and new SAM.gov small business set-aside bids.", b))
-    urls = [SITE + "/"] + [f"{SITE}/{p}" for p in p1 + p2]
+    urls = [SITE + "/", SITE + "/subscribe/"] + [f"{SITE}/{p}" for p in p1 + p2]
     open(os.path.join(root, "sitemap.xml"), "w").write('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' +
         "".join(f"<url><loc>{u}</loc><lastmod>{TODAY}</lastmod><changefreq>daily</changefreq></url>" for u in urls) + "</urlset>")
     open(os.path.join(root, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n")
