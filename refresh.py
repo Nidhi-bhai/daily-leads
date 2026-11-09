@@ -35,6 +35,9 @@ def mask_email(m):
     u, d = m.split("@", 1); return f"{u[:1]}•••@{d}"
 def mask_phone(p):
     d = re.sub(r"\D", "", p or ""); return f"({d[:3]}) •••-••••" if len(d) >= 10 else "—"
+def public_name(n):
+    """Legal names sometimes are the contact email; never publish those raw."""
+    return mask_email(n) if n and "@" in n else (n or "")
 
 # ---------------- data ----------------
 def fmcsa(days=7):
@@ -116,7 +119,7 @@ def write(root, path, content):
 def carrier_table(rows, hidden):
     h = "<table><tr><th>Added</th><th>Company</th><th>City, State</th><th>Trucks</th><th>For-hire</th><th>USDOT</th><th>Email</th><th>Phone</th></tr>"
     for r in rows:
-        h += (f"<tr><td>{e(r['added'])}</td><td>{e(r['name'] or '')}</td><td>{e(r['city'])}, {e(r['state'])}</td><td>{e(str(r['units']))}</td>"
+        h += (f"<tr><td>{e(r['added'])}</td><td>{e(public_name(r['name']))}</td><td>{e(r['city'])}, {e(r['state'])}</td><td>{e(str(r['units']))}</td>"
               f"<td>{'Yes' if r['forhire'] else 'No'}</td><td><a href='https://safer.fmcsa.dot.gov/query.asp?searchtype=ANY&amp;query_type=queryCarrierSnapshot&amp;query_param=USDOT&amp;query_string={e(r['dot'] or '')}' rel='nofollow'>{e(r['dot'] or '')}</a></td>"
               f"<td class='lock'>{e(mask_email(r['email']))}</td><td class='lock'>{e(mask_phone(r['phone']))}</td></tr>")
     h += "".join("<tr class='locked'><td>2026-10-..</td><td>HIDDEN TRANSPORT LLC</td><td>Somewhere, US</td><td>3</td><td>Yes</td><td>4••••••</td><td>o•••@gmail.com</td><td>(•••) •••-••••</td></tr>" for _ in range(3))
@@ -130,7 +133,7 @@ def build_fmcsa(root, rows, since):
     csvp = "data/fmcsa-new-carriers-sample.csv"
     with open(os.path.join(root, csvp), "w", newline="") as f:
         w = csv.writer(f); w.writerow(["added", "company", "city", "state", "power_units", "for_hire", "usdot", "email", "phone"])
-        for r in rows[:show]: w.writerow([r["added"], r["name"], r["city"], r["state"], r["units"], r["forhire"], r["dot"], mask_email(r["email"]), mask_phone(r["phone"])])
+        for r in rows[:show]: w.writerow([r["added"], public_name(r["name"]), r["city"], r["state"], r["units"], r["forhire"], r["dot"], mask_email(r["email"]), mask_phone(r["phone"])])
     by = {}
     for r in rows: by.setdefault(r["state"], []).append(r)
     top = sorted(((s, v) for s, v in by.items() if s in STATES), key=lambda x: -len(x[1]))
